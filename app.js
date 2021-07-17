@@ -5,3 +5,16 @@ const path = require('path')
 const mongoose = require("./database")
 
 const server = app.listen(port, () => console.log("Server Listening on " + port));
+
+app.set("view engine", "pug");
+app.set("views", "views");
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json())
+app.use(express.static(path.join(__dirname, "public")));
+
+// Routes
+const homeRoute = require("./routes/homeRoutes");
+
+app.use("/", homeRoute);
+app.use("/home", homeRoute);
