@@ -335,6 +335,19 @@ body {
 	visibility: hidden;
 }
 
+/* Image Pop Op */
+
+#previewImage {
+	width: 100%;
+}
+
+.previewImageCaptionsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
 /* Pagination */
 
 .paginationHolder {

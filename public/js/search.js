@@ -164,12 +164,13 @@ function createImageResultHtml (results) {
     for (let i = 0; i < results.length; i++) {
         let alt = results[i].alt !== undefined ? results[i].alt : "";
         let url = results[i].url !== undefined ? results[i].url : "#";
+        let id = results[i]._id;
         let uniqueClass = 'image' + i;
         imageCountsArray.push({url, uniqueClass});
 
         html = html + `
         <div class='gridItem image${i}'>
-           <a href='${url}'>
+           <a href='${url}' data-id='${id}'>
                 <span class='details'>${alt}</span>
            </a>
         </div>`;
@@ -203,3 +204,24 @@ function activateMasonry() {
         transitionDuration: 1
     })
 }
+
+// find the child element img src if the parent item is clicked
+$(document).on("click", ".gridItem", function (e) {
+    e.preventDefault()
+    var url = $(this).find("a").attr("href");
+    var alt = $(this).find("span.details").text();
+    var urlSplit = url.split("//");
+    var urlHost = urlSplit[1];
+    var urlHostSplit = urlHost.split("/");
+    var urlHostName = urlHostSplit[0];
+    
+    
+    $("#showImagePreview").modal("show");
+    $("#previewImage").attr("src", url);
+    var captionHTML = `<a href="${url}"> ${alt} </a>`
+    $("#previewImageCaption").html(captionHTML);
+    $("#previewImageLink").attr("href", urlHostName);
+
+    $("#previewImageLink").html("Visit Website");
+
+})

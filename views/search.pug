@@ -8,6 +8,7 @@ html(lang="en")
         meta(name="description", content="crawler using expressjs")
 
         title !{title}
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", crossorigin="anonymous")
         link(rel="stylesheet", href="/css/main.css", id="maincss")
     body
         script.
@@ -49,8 +50,23 @@ html(lang="en")
                                 path(fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z")
                         span Next
 
+            #showImagePreview.modal.fade(tabindex='-1' role='dialog' aria-labelledby='showImagePreviewTitle' aria-hidden='true')
+                .modal-dialog.modal-dialog-centered(role='document')
+                    .modal-content
+                        .modal-body
+                            .previewImageHolder
+                                img#previewImage
+                            .previewImageCaptionsContainer
+                                span#previewImageCaption
+                                a#previewImageLink(href='')
+                        .modal-footer
+                            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+
+
 
         script(src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous')
+        script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
+        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous")
         script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js")
         
         script(src='/js/search.js')
