@@ -20,7 +20,11 @@ router.get("/", async (req, res, next) => {
             type: req.query.type !== undefined ? req.query.type : null,
             start: req.query.start !== undefined ? req.query.start : 0,
         }
-        var start = req.query.start !== undefined ? parseInt(req.query.start) : 0;
+        var start = req.query.start !== undefined 
+            ? parseInt(req.query.start) >= 0 
+                ? parseInt(req.query.start) 
+                : 0
+            : 0;
         
         if(req.query.type === undefined) {
             searchObj = { $text: { $search: searchObj.q } },{ score: { $meta: "textScore" } }

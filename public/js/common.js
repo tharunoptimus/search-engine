@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    if(resultObject !== undefined){
-        $(".resultsDiv").html(decideWhatToPrint(resultObject));
-    }
+    printResults();
 });
 
 $(document).on("click", "#searchButton",function() {
@@ -87,15 +85,84 @@ function createSiteResultHtml (results) {
 
 function decideWhatToPrint(resultsObject) {
     var html = "";
-    console.log(resultsObject.length)
-    if (resultsObject.length == 0) {
-        html ="<span class='noResults'>No Results Found</span>";
-    } else {
-        var urlParams = getCurrentURLParameters();
-        if(urlParams.type == null) {
-            html = createSiteResultHtml(resultsObject);
+    var urlParams = getCurrentURLParameters();
+    if(urlParams.type == null) {
+        // Printing Site Results
+        if (resultsObject.length == 0) {
+            html ="<span class='noResults'>No Results Found</span>";
+            paginationButtonsController(false)
+        } else {
+            var urlParams = getCurrentURLParameters();
+            if(urlParams.type == null) {
+                html = createSiteResultHtml(resultsObject);
+                paginationButtonsController(true)
+            }
         }
     }
 
     return html;
+}
+
+function paginationButtonsController (condition) {
+    var urlParams = getCurrentURLParameters();
+    if(condition) {
+        if(urlParams.start == null) {
+            // First page of the results
+            $("#previousButton").hide();
+        }
+    
+    }
+    else {
+        $("#nextButton").hide();
+        if(urlParams.start == null || parseInt(urlParams.start) == 0) { $("#previousButton").hide(); }
+    }
+}
+
+// document element on click function
+$(document).on("click", "#previousButton", function () {
+    console.log("clicked previous button")
+    var urlParams = getCurrentURLParameters();
+    var q = urlParams.q;
+    var start = urlParams.start != null ? parseInt(urlParams.start) : 0;
+    var type = urlParams.type != null ? "&type=" + urlParams.type : "";
+
+    if(start == 0 || start < 10) {
+        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        window.open(url,"_self")
+        return;
+    }
+
+    if (start >= 10) { 
+        start = start - 10;
+
+        if(start == 0) { start = "" }
+        else {start = "&start=" + start; }
+        
+        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + start + type;
+        window.open(url,"_self")
+    }
+    
+})
+
+$("#nextButton").on("click", function () {
+    console.log("clicked me")
+})
+
+$(document).on("click", "#nextButton", function () {
+    console.log("clicked me")
+    var urlParams = getCurrentURLParameters();
+    var q = urlParams.q;
+    var start = urlParams.start != null ? parseInt(urlParams.start) : 0;
+    var type = urlParams.type != null ? "&type=" + urlParams.type : "";
+
+    start = start + 10;
+    start = "&start=" + start;
+    var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + start + type;
+    window.open(url,"_self")
+})
+
+function printResults () {
+    if(resultObject !== undefined){
+        $(".resultsDiv").html(decideWhatToPrint(resultObject));
+    }
 }
