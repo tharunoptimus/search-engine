@@ -2,18 +2,18 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
         meta(name="author", content="tharunoptimus")
         meta(name="keywords", content="crawler")
         meta(name="description", content="crawler using expressjs")
 
         title !{title}
         link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", crossorigin="anonymous")
-        link(rel="stylesheet", href="/css/main.css", id="maincss")
     body
         script.
             var resultObject = !{results};
         
-        .searchPageBody
+        .searchPageBody(style="display: none")
             .searchPageHeader
                 .logoAndSearchBox
                     a(href="/")
@@ -21,7 +21,7 @@ html(lang="en")
                             img(src="/images/logo.png", alt="Logo")
                     .searchBoxContainer
                         .inputFieldHolder
-                            input#subSearchTermInput(type="url", name="subUrlInput", value=q)
+                            input#subSearchTermInput(aria-label="Search Box", type="url", name="subUrlInput", value=q)
                             span.marginleft
                             span.searchLogoContainer#searchPageSearchButton(style="padding-left:0.5rem;")
                                 svg(focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
@@ -57,7 +57,7 @@ html(lang="en")
                                 img#previewImage
                             .previewImageCaptionsContainer
                                 span#previewImageCaption
-                                a#previewImageLink(href='')
+                                a#previewImageLink(href='/')
                         .modal-footer
                             button.btn.btn-secondary(type='button' data-dismiss='modal') Close
 

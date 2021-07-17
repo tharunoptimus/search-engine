@@ -2,6 +2,34 @@ var urlParams = getCurrentURLParameters();
 var imageCountsArray = [];
 
 $(document).ready(function () {
+    if(screen.width < 420) {
+		var cssFa = document.createElement("link");
+        cssFa.href =
+            "/css/mobilesearch.css";
+        cssFa.rel = "stylesheet";
+        cssFa.type = "text/css";
+        document.getElementsByTagName("head")[0].appendChild(cssFa);
+        
+        var width = "'"+screen.width - 40+"'";
+
+        $(".resultDiv a").css("width", width);
+
+	}
+	else {
+		var cssFa = document.createElement("link");
+        cssFa.href =
+            "/css/search.css";
+        cssFa.rel = "stylesheet";
+        cssFa.type = "text/css";
+        document.getElementsByTagName("head")[0].appendChild(cssFa);
+	}
+    $(".searchPageBody").show();
+
+	if(window.location.hostname !== 'localhost') {
+		if (location.protocol !== 'https:') {
+			location.replace(`https:${location.href.substring(location.protocol.length)}`);
+		}
+	}
     printResults();
 });
 
@@ -155,7 +183,6 @@ function printResults () {
         }
         else {
             $(".imagesDiv").html(decideWhatToPrint(resultObject));
-            activateMasonry();
             $(".resultsDiv").remove();
         } 
     }
@@ -195,7 +222,6 @@ function loadImage(src, className) {
 
     image.on("load", function () {
         $("." + className + " a").append(image);
-        $(".imagesDiv").masonry();
     });
 
     image.on("error", function () {
@@ -205,16 +231,6 @@ function loadImage(src, className) {
     image.attr("src", src);
 }
 
-function activateMasonry() {
-    var grid = $(".imagesDiv");
-
-    grid.masonry({
-        itemSelector: '.gridItem',
-        columnWidth: 200,
-        gutter: 5,
-        transitionDuration: 1
-    })
-}
 
 // find the child element img src if the parent item is clicked
 $(document).on("click", ".gridItem", function (e) {

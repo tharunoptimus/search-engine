@@ -1,21 +1,21 @@
-$(document).on("click", "#searchButton",function() {
-    submitRequestFromHome(false)
-    
-})
+var searchButton = document.querySelector('#searchButton');
+searchButton.addEventListener('click', function (event) {
+	submitRequestFromHome(false)
+});
 
-$(document).on("click", "#imageSearchButton",function() {
-    submitRequestFromHome(true)
-    
-})
+var imageSearchButton = document.querySelector('#imageSearchButton');
+imageSearchButton.addEventListener('click', function (event) {
+	submitRequestFromHome(true)
+});
 
-$(document).on("keypress", "#searchTermInput", function (e) {
-    if (e.which == 13 && $("#searchTermInput").val().trim() != "") {
+document.querySelector("#searchTermInput").addEventListener("keypress", function (e) {
+    if (e.which == 13 && document.querySelector("#searchTermInput").value.trim() != "") {
         submitRequestFromHome(false)
     }
 });
 
 function submitRequestFromHome(image){
-    var searchTerm = $("#searchTermInput").val().trim();
+    var searchTerm = searchTermInput.value.trim();
     var extend = '';
     if(image) { var extend = "&type=images"; } 
     if (searchTerm.length > 0) {
@@ -24,3 +24,11 @@ function submitRequestFromHome(image){
         
     }
 }
+
+if('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('serviceworker.js')
+            .then((reg) => console.log('Success: ', reg.scope))
+            .catch((err) => console.log('Failure: ', err));
+    })
+} 
