@@ -40,7 +40,7 @@ router.get("/", async (req, res, next) => {
         }
         else if(req.query.type == "images") {
             searchObj = { $text: { $search: searchObj.q } },{ score: { $meta: "textScore" } }
-            await Image.find(searchObj).skip(start).limit(10).sort( { score: { $meta: "textScore" } } )
+            await Image.find(searchObj).skip(start).limit(30).sort( { score: { $meta: "textScore" } } )
             .then( results => {
                 payload.results = JSON.stringify(results);
                 res.status(200).render("search", payload)
