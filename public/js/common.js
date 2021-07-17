@@ -1,3 +1,9 @@
+$(document).ready(function () {
+    if(resultObject !== undefined){
+        $(".resultsDiv").html(decideWhatToPrint(resultObject));
+    }
+});
+
 $(document).on("click", "#searchButton",function() {
     submitRequestFromHome()
     
@@ -57,4 +63,39 @@ function getCurrentURLParameters() {
 function isValidURL(url) {
     var pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
     return pattern.test(url);
+}
+
+function createSiteResultHtml (results) {
+    var html = "";
+    results.forEach(result => {
+        var descriptionThing = (result.description).length <= 300 ? result.description : result.description.substring(0, 300) + "...";
+        html = html + `
+        <div class='resultDiv'>
+            <div class='resultUrl'>
+                <a class='resultTitleUrl' href='${result.url}'>${result.url}</a>
+            </div>
+            <div class='resultTitle'>
+                <a class='resultTitleUrl' href='${result.url}'>${result.title}</a>
+            </div>
+            <div class='resultDescription'>
+                ${result.description}
+            </div>
+        </div>`;
+    });
+    return html;
+}
+
+function decideWhatToPrint(resultsObject) {
+    var html = "";
+    console.log(resultsObject.length)
+    if (resultsObject.length == 0) {
+        html ="<span class='noResults'>No Results Found</span>";
+    } else {
+        var urlParams = getCurrentURLParameters();
+        if(urlParams.type == null) {
+            html = createSiteResultHtml(resultsObject);
+        }
+    }
+
+    return html;
 }
