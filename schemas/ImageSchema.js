@@ -5,6 +5,7 @@ const ImageSchema = new Schema({
 	alt: { type: String, trim: true },
     
 });
+ImageSchema.index({url: 'text', alt: 'text'});
 
 var Image = mongoose.model('Image', ImageSchema)
 module.exports = Image;

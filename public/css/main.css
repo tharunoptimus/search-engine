@@ -141,3 +141,148 @@ body {
 	cursor: pointer;
 	user-select: none;
 }
+
+
+/* Results Page */
+
+.searchPageBody {
+	min-height: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.searchPageHeader {
+	padding-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.logoAndSearchBox {
+	display: flex;
+	padding-left: 1rem;
+}
+
+.headerLogoContainer {
+	margin: 0.5rem;
+	max-width: 110px;
+}
+
+.headerLogoContainer img {
+	width: 100%;
+}
+
+.searchBoxContainer {
+	flex: 1;
+}
+
+.searchBoxContainer .inputFieldHolder {
+	max-width: 690px;
+	min-width: 500px;
+	width: 65%;
+	flex: 1;
+	display: flex;
+	padding: 0px 8px 0 16px;
+	background: #fff;
+	border: 1px solid #dfe1e5;
+	box-shadow: none;
+	border-radius: 24px;
+	z-index: 3;
+	height: 2.3rem;
+	margin-left: 1rem;
+}
+
+.tabsContainer {
+	background: #fff;
+	height: 45px;
+	padding: 0;
+	position: relative;
+	z-index: 126;
+	white-space: nowrap;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.zyx {
+	position: relative;
+	white-space: nowrap;
+	align-items: baseline;
+	display: flex;
+	-ms-flex-pack: justify;
+	float: left;
+	justify-content: space-between;
+	min-width: 832px;
+	height: 100%;
+}
+
+.marginleft {
+	border-left: 1px solid #dfe1e5;
+	height: 90%;
+}
+
+.tabsHolder {
+	display: flex;
+	margin-left: 180px;
+	height: 100%;
+}
+
+.tabsHolder span {
+	margin-right: 1rem;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+#sitesSpanTab {
+	border-bottom: 3px solid #1a73e8;
+}
+
+.searchPageBody .wrapper .resultsDiv {
+	margin-top: 30px;
+	clear: both;
+	position: relative;
+	margin-left: 180px;
+	width: 652px;
+}
+
+.searchPageBody .wrapper .resultDiv {
+	clear: both;
+	position: relative;
+	width: 600px;
+	margin-bottom: 30px;
+}
+
+.searchPageBody .wrapper .resultDiv a {
+	font-size: 14px;
+	line-height: 1.1;
+	width: 360px;
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-decoration: none;
+	color: #202124;
+}
+
+.searchPageBody .wrapper .resultDiv .resultTitle a {
+	padding-top: 5px;
+	font-size: 20px;
+	line-height: 1.3;
+	text-decoration: none;
+	color: #1a0dab;
+}
+.searchPageBody .wrapper .resultDiv .resultDescription {
+	margin-top: 0.1rem;
+	max-width: 35em;
+	color: #4d5156;
+	display: block;
+}
+
+#subSearchTermInput {
+	flex: 1;
+    padding: 0px;
+	padding-right: 0.3rem;
+    outline: none;
+    height: 96%;
+    border: 0;
+    font-size: 1.1rem;
+}

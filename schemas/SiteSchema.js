@@ -7,6 +7,7 @@ const SitesSchema = new Schema({
 	keywords: { type: String, trim: true }
     
 });
+SitesSchema.index({url: 'text', title: 'text', description: 'text', keywords: 'text'});
 
 var Site = mongoose.model('Site', SitesSchema)
 module.exports = Site;
