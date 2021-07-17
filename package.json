@@ -1,0 +1,21 @@
+{
+  "name": "search-engine",
+  "version": "1.0.0",
+  "description": "Search for sites and images",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "search",
+    "engine"
+  ],
+  "author": "Tharunraj Optimus",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.0.0",
+    "mongoose": "^5.13.3",
+    "pug": "^3.0.2"
+  }
+}
