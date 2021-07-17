@@ -15,6 +15,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 const homeRoute = require("./routes/homeRoutes");
+const searchRoute = require("./routes/searchRoutes");
 
 app.use("/", homeRoute);
 app.use("/home", homeRoute);
+app.use("/search", searchRoute);
