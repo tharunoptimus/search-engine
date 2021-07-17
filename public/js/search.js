@@ -1,23 +1,13 @@
+var urlParams = getCurrentURLParameters();
+var imageCountsArray = [];
+
 $(document).ready(function () {
     printResults();
-});
-
-$(document).on("click", "#searchButton",function() {
-    submitRequestFromHome()
-    
-})
-
-$(document).on("keypress", "#searchTermInput", function (e) {
-    if (e.which == 13 && $("#searchTermInput").val().trim() != "") {
-        submitRequestFromHome()
-    }
 });
 
 $(document).on("click", "#searchPageSearchButton",function() {
     submitRequestFromSearchPage();
 })
-
-
 
 $(document).on("keypress", "#subSearchTermInput", function (e) {
     if (e.which == 13 && $("#subSearchTermInput").val().trim() != "") {
@@ -25,14 +15,6 @@ $(document).on("keypress", "#subSearchTermInput", function (e) {
     }
 });
 
-function submitRequestFromHome(){
-    var searchTerm = $("#searchTermInput").val().trim();    
-    if (searchTerm.length > 0) {
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(searchTerm);
-        window.open(url,"_self")
-        
-    }
-}
 
 function submitRequestFromSearchPage() {
     var params = getCurrentURLParameters();
@@ -58,11 +40,6 @@ function getCurrentURLParameters() {
     return urlParams;
 }
 
-function isValidURL(url) {
-    var pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
-    return pattern.test(url);
-}
-
 function createSiteResultHtml (results) {
     var html = "";
     results.forEach(result => {
@@ -85,26 +62,35 @@ function createSiteResultHtml (results) {
 
 function decideWhatToPrint(resultsObject) {
     var html = "";
-    var urlParams = getCurrentURLParameters();
     if(urlParams.type == null) {
         // Printing Site Results
         if (resultsObject.length == 0) {
             html ="<span class='noResults'>No Results Found</span>";
             paginationButtonsController(false)
         } else {
-            var urlParams = getCurrentURLParameters();
-            if(urlParams.type == null) {
-                html = createSiteResultHtml(resultsObject);
-                paginationButtonsController(true)
-            }
+            html = createSiteResultHtml(resultsObject);
+            paginationButtonsController(true)
         }
+    }
+    else {
+        // Printing Images
+        if (resultsObject.length == 0) {
+            html ="<span class='noResults'>No Results Found</span>";
+            paginationButtonsController(false)
+        } else {
+            html = createImageResultHtml(resultsObject);
+            imageCountsArray.forEach(data => {
+                loadImage(data.url, data.uniqueClass);
+            });
+            paginationButtonsController(true)
+        }
+        
     }
 
     return html;
 }
 
 function paginationButtonsController (condition) {
-    var urlParams = getCurrentURLParameters();
     if(condition) {
         if(urlParams.start == null) {
             // First page of the results
@@ -121,7 +107,6 @@ function paginationButtonsController (condition) {
 // document element on click function
 $(document).on("click", "#previousButton", function () {
     console.log("clicked previous button")
-    var urlParams = getCurrentURLParameters();
     var q = urlParams.q;
     var start = urlParams.start != null ? parseInt(urlParams.start) : 0;
     var type = urlParams.type != null ? "&type=" + urlParams.type : "";
@@ -150,7 +135,6 @@ $("#nextButton").on("click", function () {
 
 $(document).on("click", "#nextButton", function () {
     console.log("clicked me")
-    var urlParams = getCurrentURLParameters();
     var q = urlParams.q;
     var start = urlParams.start != null ? parseInt(urlParams.start) : 0;
     var type = urlParams.type != null ? "&type=" + urlParams.type : "";
@@ -163,6 +147,59 @@ $(document).on("click", "#nextButton", function () {
 
 function printResults () {
     if(resultObject !== undefined){
-        $(".resultsDiv").html(decideWhatToPrint(resultObject));
+        if(urlParams.type == null) {
+            $(".resultsDiv").html(decideWhatToPrint(resultObject));
+            $(".imagesDiv").remove();
+        }
+        else {
+            $(".imagesDiv").html(decideWhatToPrint(resultObject));
+            activateMasonry();
+            $(".resultsDiv").remove();
+        } 
     }
+}
+
+function createImageResultHtml (results) {
+    var html = "";
+    for (let i = 0; i < results.length; i++) {
+        let alt = results[i].alt !== undefined ? results[i].alt : "";
+        let url = results[i].url !== undefined ? results[i].url : "#";
+        let uniqueClass = 'image' + i;
+        imageCountsArray.push({url, uniqueClass});
+
+        html = html + `
+        <div class='gridItem image${i}'>
+           <a href='${url}'>
+                <span class='details'>${alt}</span>
+           </a>
+        </div>`;
+    }
+
+    return html;
+}
+
+function loadImage(src, className) {
+    var image = $("<img/>");
+
+    image.on("load", function () {
+        $("." + className + " a").append(image);
+        $(".imagesDiv").masonry();
+    });
+
+    image.on("error", function () {
+        $("." + className).remove();
+    });
+
+    image.attr("src", src);
+}
+
+function activateMasonry() {
+    var grid = $(".imagesDiv");
+
+    grid.masonry({
+        itemSelector: '.gridItem',
+        columnWidth: 200,
+        gutter: 5,
+        transitionDuration: 1
+    })
 }

@@ -39,12 +39,6 @@ router.get("/", async (req, res, next) => {
             })
         }
         else if(req.query.type == "images") {
-            searchObj = {
-                $or: [
-                    { url: { $regex: searchObj.q }},
-                    { alt: { $regex: searchObj.q }},
-                ]
-            }
             searchObj = { $text: { $search: searchObj.q } },{ score: { $meta: "textScore" } }
             await Image.find(searchObj).skip(start).limit(10).sort( { score: { $meta: "textScore" } } )
             .then( results => {
