@@ -63,6 +63,7 @@ function createSiteResultHtml (results) {
 function decideWhatToPrint(resultsObject) {
     var html = "";
     if(urlParams.type == null) {
+        applyBorderBottomToTab(true);
         // Printing Site Results
         if (resultsObject.length == 0) {
             html ="<span class='noResults'>No Results Found</span>";
@@ -73,6 +74,7 @@ function decideWhatToPrint(resultsObject) {
         }
     }
     else {
+        applyBorderBottomToTab(false);
         // Printing Images
         if (resultsObject.length == 0) {
             html ="<span class='noResults'>No Results Found</span>";
@@ -159,6 +161,15 @@ function printResults () {
     }
 }
 
+function applyBorderBottomToTab(value) {
+    if(value) {
+        $("#sitesSpanTab").addClass("appendBorder");
+    }
+    else {
+        $("#imagesSpanTab").addClass("appendBorder");
+    }
+}
+
 function createImageResultHtml (results) {
     var html = "";
     for (let i = 0; i < results.length; i++) {
@@ -225,3 +236,29 @@ $(document).on("click", ".gridItem", function (e) {
     $("#previewImageLink").html("Visit Website");
 
 })
+
+// on clicking #sitesSpanTab do something
+$("#sitesSpanTab").on("click", function () {
+    changeSearchType(true)
+})
+
+$("#imagesSpanTab").on("click", function () {
+    changeSearchType(false)
+})
+
+function changeSearchType (type) {
+    var q = urlParams.q;
+    if(type) {
+        type = "";
+        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        // window.open(url,"_self")
+        console.log("clicked sites span")
+        console.log(url)
+        window.open(url, "_self")
+    }
+    else {
+        type = "&type=images";
+        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        window.open(url,"_self")
+    }
+}

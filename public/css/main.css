@@ -124,7 +124,8 @@ body {
 	font-size: 16px;
 }
 
-#searchButton {
+#searchButton,
+#imageSearchButton {
 	margin: 1rem;
 	background-color: #f8f9fa;
 	border: 1px solid #f8f9fa;
@@ -219,6 +220,10 @@ body {
 	border-bottom: 1px solid #ebebeb;
 }
 
+.appendBorder {
+	border-bottom: 3px solid #1a73e8;
+}
+
 .zyx {
 	position: relative;
 	white-space: nowrap;
@@ -249,9 +254,6 @@ body {
 	cursor: pointer;
 }
 
-#sitesSpanTab {
-	border-bottom: 3px solid #1a73e8;
-}
 
 /* Site Results */
 
