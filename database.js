@@ -1,8 +1,5 @@
 const mongoose = require("mongoose")
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
+const MONGO_URL = process.env.MONGO_URL
 class Database {
 
     constructor() {
@@ -10,7 +7,7 @@ class Database {
     }
 
     connect() {
-        mongoose.connect("mongodb+srv://username:password@<atlas hostname>/databaseName?retryWrites=true&w=majority")
+        mongoose.connect(MONGO_URL)
         .then(() => {
             console.log("Database Connection Successful!");
         })

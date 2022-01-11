@@ -1,7 +1,7 @@
 # Search Engine
 
 ## Config
-Update the mongoDB database username, password, hostname in the `database.js` file
+Add Environment Variable MONGO_URL in a .env file or as an environment variable on your hosting platform.
 
 ## Add data to the database - Crawler
 - Clone this repository <a href='https://github.com/tharunoptimus/crawlerbot.git'>Crawler Bot</a> to another directory and run it
