@@ -1,5 +1,6 @@
 var urlParams = getCurrentURLParameters();
 var imageCountsArray = [];
+var searchQueryString = "/search?q="
 
 $(document).ready(function () {
 
@@ -27,7 +28,7 @@ function submitRequestFromSearchPage() {
     if($("#subSearchTermInput").val().trim() == "") return;
     var q = $("#subSearchTermInput").val().trim();
     var type = params.type != null ? "&type=" + params.type : "";
-    var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+    var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + type;
     window.open(url,"_self")
 }
 
@@ -120,7 +121,7 @@ $(document).on("click", "#previousButton", function () {
     var type = urlParams.type != null ? "&type=" + urlParams.type : "";
 
     if(start == 0 || start < 10) {
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + type;
         window.open(url,"_self")
         return;
     }
@@ -131,7 +132,7 @@ $(document).on("click", "#previousButton", function () {
         if(start == 0) { start = "" }
         else {start = "&start=" + start; }
         
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + start + type;
+        var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + start + type;
         window.open(url,"_self")
     }
     
@@ -149,7 +150,7 @@ $(document).on("click", "#nextButton", function () {
 
     start = start + 10;
     start = "&start=" + start;
-    var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + start + type;
+    var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + start + type;
     window.open(url,"_self")
 })
 
@@ -244,7 +245,7 @@ function changeSearchType (type) {
     var q = urlParams.q;
     if(type) {
         type = "";
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + type;
         // window.open(url,"_self")
         console.log("clicked sites span")
         console.log(url)
@@ -252,7 +253,7 @@ function changeSearchType (type) {
     }
     else {
         type = "&type=images";
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(q) + type;
+        var url = window.location.protocol + "//" + window.location.host + searchQueryString + encodeURIComponent(q) + type;
         window.open(url,"_self")
     }
 }
