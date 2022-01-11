@@ -1,11 +1,12 @@
 @font-face {
-	font-family: sans;
-	src: url(/css/sans.ttf) format("truetype");
+	font-family: Inter;
+	src: url(/css/Inter.woff) format("woff");
 	font-display: swap;
 }
 * {
-	font-family: sans, sans-serif, arial;
+	font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	color: #545454;
+	font-weight: 500;
 }
 body,
 html {
@@ -238,7 +239,6 @@ html {
 }
 .searchPageBody .wrapper .resultDiv a {
 	font-size: 14px;
-	line-height: 1.1;
 	width: 360px;
 	display: block;
 	white-space: nowrap;
@@ -408,11 +408,11 @@ html {
         height: fit-content;
     }
     .tabsHolder {
-        margin-left: 40px;
+        margin-left: 14px;
         height: fit-content;
     }
     .tabsHolder span {
-        margin-right: 2rem;
+        margin-right: 14px;
         font-size: 1.4rem;
     }
     .searchPageBody .wrapper .resultsDiv {
