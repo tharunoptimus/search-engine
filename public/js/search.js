@@ -2,28 +2,6 @@ var urlParams = getCurrentURLParameters();
 var imageCountsArray = [];
 
 $(document).ready(function () {
-    if(screen.width < 420) {
-		var cssFa = document.createElement("link");
-        cssFa.href =
-            "/css/mobilesearch.css";
-        cssFa.rel = "stylesheet";
-        cssFa.type = "text/css";
-        document.getElementsByTagName("head")[0].appendChild(cssFa);
-        
-        var width = "'"+screen.width - 40+"'";
-
-        $(".resultDiv a").css("width", width);
-
-	}
-	else {
-		var cssFa = document.createElement("link");
-        cssFa.href =
-            "/css/search.css";
-        cssFa.rel = "stylesheet";
-        cssFa.type = "text/css";
-        document.getElementsByTagName("head")[0].appendChild(cssFa);
-	}
-    $(".searchPageBody").show();
 
 	if(window.location.hostname !== 'localhost') {
 		if (location.protocol !== 'https:') {
