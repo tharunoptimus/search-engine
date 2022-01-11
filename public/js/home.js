@@ -19,7 +19,7 @@ function submitRequestFromHome(image){
     var extend = '';
     if(image) { var extend = "&type=images"; } 
     if (searchTerm.length > 0) {
-        var url = window.location.protocol + "//" + window.location.host + "/search/?q=" + encodeURIComponent(searchTerm) + extend;
+        var url = window.location.protocol + "//" + window.location.host + "/search?q=" + encodeURIComponent(searchTerm) + extend;
         window.open(url,"_self")
         
     }
